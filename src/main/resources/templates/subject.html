@@ -24,9 +24,53 @@
     <link rel="stylesheet" type="text/css" href="sub/css/util.css">
     <link rel="stylesheet" type="text/css" href="sub/css/main.css">
     <!--===============================================================================================-->
+<style>
+    body {margin: 0;}
+
+    ul.topnav {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background-color: #333;
+    }
+
+    ul.topnav li {float: left;}
+
+    ul.topnav li a {
+        display: block;
+        color: white;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+    }
+
+    ul.topnav li a:hover:not(.active) {background-color: #111;}
+
+    ul.topnav li a.active {background-color: #4CAF50;}
+
+    ul.topnav li.right {float: right;}
+
+    @media screen and (max-width: 600px) {
+        ul.topnav li.right,
+        ul.topnav li {float: none;}
+    }
+</style>
 </head>
 <body>
 
+<ul class="topnav">
+    <li><a style="background-color: #6c757d" class="active"  href="/adminbk">Home</a></li>
+<!--    <li><a href="#news">News</a></li>-->
+<!--    <li><a href="#contact">Contact</a></li>-->
+    <li class="right"><a href="#logout">Logout</a></li>
+</ul><br><br><br>
+ 
+<body>
+<div class="wrap-input100 validate-input" th:each="data :${sucess}">
+                <input class="input100" type="text"   th:value="${sucess}" readonly >
+                
+            </div>
 
 <div class="container-contact100">
 

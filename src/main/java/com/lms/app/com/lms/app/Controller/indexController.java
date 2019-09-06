@@ -64,7 +64,7 @@ public class indexController {
     @RequestMapping("/sci.public")
     public String lmsPage() {
     	
-    	return "nsbm";
+    	return "myhome";
     }
     
     
@@ -196,11 +196,12 @@ public class indexController {
     }
 
     @PostMapping("/addevent")
-    public String addevents(Event event){
+    public String addevents(Event event ,Model model){
 
         eventRepo.save(event);
-
-        return "redirect:/evnt";
+  model.addAttribute("sucess", "events successfully added !");
+       // return "redirect:/evnt";
+  return "events";
     }
 
 
@@ -211,11 +212,11 @@ public class indexController {
 
 
     @PostMapping("/addsubjrct")
-    public String addsubjecttoDb(subjects subjects){
+    public String addsubjecttoDb(subjects subjects,Model model){
 
         subjectRepo.save(subjects);
-
-        return "redirect:/showsubject";
+         model.addAttribute("sucess", "Subject add success!");
+        return "subject";
     }
 
 //    @RequestMapping("/logl")
@@ -231,7 +232,7 @@ public class indexController {
          
     	if(lectureRepo.findbylog(Username)==null) {
     		System.out.println("invalid username");
-    		return "nsbm";
+    		return "myhome";
     	}
     	
     	Lecture lecture=lectureRepo.findbylog(Username);
@@ -266,7 +267,7 @@ public class indexController {
  
         return "lecturelog2";
     	}
-    	return "nsbm";
+    	return "myhome";
      
     }
     
@@ -364,7 +365,7 @@ public class indexController {
 	  System.out.println(Username);
 	  if(studentRepo.findbylog(Username)==null) {
 		  System.out.println("invalid Username");
-		  return "nsbm";
+		  return "myhome";
 		
 	  }
 	   else {
@@ -397,7 +398,7 @@ public class indexController {
 	
 	
 	   }
-	  return "nsbm";
+	  return "myhome";
 	
 	
   }
@@ -414,7 +415,7 @@ public class indexController {
 	  
 	  if(studentRepo.findbylog(Username)==null) {
 		  
-		  return "nsbm";
+		  return "myhome";
 	  }
 	  else {
 		Students students =studentRepo.findbylog(Username);
@@ -424,7 +425,7 @@ public class indexController {
 			return "addfeedback";
 		}
 	}
-	  return "nsbm";
+	  return "myhome";
   }
   
   @RequestMapping("/getLectureName")
@@ -449,7 +450,7 @@ public class indexController {
   */
   
   @RequestMapping("/addfeed")
-  public String addFeedback(@RequestParam String message,Positive positive,Negative negative,MiddleComments middleComments){
+  public String addFeedback(@RequestParam String message,Positive positive,Negative negative,MiddleComments middleComments,Model model){
 
       StanfordCoreNLP stanfordCoreNLP=Pipeline.getPipeline();
       String text=message;
@@ -462,14 +463,16 @@ public class indexController {
 
          String sentiment=sentence.sentiment();
          System.out.println(sentiment +"= " +sentence);
-         if (sentiment .equals("Positive")){
+         if (sentiment .equals("Positive") || sentence.equals("Very positive")){
 
              System.out.println("positive comment");
              positiveRepo.save(positive);
+             model.addAttribute("sucess", "Thank you for your feedback");
+             
 
 
          }
-         else if (sentiment.equals("Negative")){
+         else if (sentiment.equals("Negative") || sentence.equals("Very negative")){
 
              System.out.println("negative comment");
              negativeRepo.save(negative);
@@ -612,7 +615,7 @@ public class indexController {
     	//model.addAttribute(text, "text");
     	model.addAttribute(text);
     	
-    	
+    	 model.addAttribute("sucess", "password change successfully");
     	return "password3";
     }
     

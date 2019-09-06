@@ -92,6 +92,10 @@ input[type=submit]:hover {
          <input type="submit" value="Submit">
 </form>
 
+<div  th:each="data :${sucess}">
+ <input type="text"  th:value="${data}" >
+</div>
+
 <div class="container" th:each="data :${data}">
   <form action="/addfeed">
   
